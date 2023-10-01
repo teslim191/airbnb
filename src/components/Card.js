@@ -1,35 +1,32 @@
 import React from "react";
-import swimmer from "../images/swim.png";
-import weddingPhoto from "../images/wedding-photography.png";
-import mountainBike from "../images/mountain-bike.png";
-import star from "../images/Star.png"
 
-
-export default function Card(){
-    return (
-        <section className="card">
-            <div>
-                <img src={swimmer} alt="swimmer" />
-                <br />
-                <span><img className="starIcon" src={star} alt="star"/><small> 5.0 (6).USA</small></span>
-                <p>Life lessons with katie zaferes</p>
-                <p><strong>From $136</strong>/ person</p>
-            </div>
-            <div>
-                <img src={weddingPhoto} alt="wedding" />
-                <br />
-                <span><img className="starIcon" src={star} alt="star"/><small> 5.0 (6).USA</small></span>
-                <p>Life lessons with katie zaferes</p>
-                <p><strong>From $136</strong>/ person</p>
-            </div>
-            <div>
-                <img src={mountainBike} alt="mountain bike" />
-                <br />
-                <span><img className="starIcon" src={star} alt="star"/><small> 5.0 (6).USA</small></span>
-                <p>Life lessons with katie zaferes</p>
-                <p><strong>From $136</strong>/ person</p>
-            </div>
-        </section>
-
-    )
+export default function Card(props) {
+    console.log(props.title);
+  const isSoldOut = props.openSpots === 0;
+  const isOnline = props.location === "Online";
+  return (
+    <div className="cardImage">
+      {isOnline ? <div className="card-box"></div> : " "}
+      {isSoldOut ? (
+        <div className="card-spot">SOLD OUT</div>
+      ) : !isSoldOut && isOnline ? (
+        <div className="card-spot">ONLINE</div>
+      ) : (
+        " "
+      )}
+      <img className="main-image" src={'/images/' +props.coverImg} alt="FCC" />
+      <div>
+        <p>
+          <img src={'/images/' +props.star} alt="rate" width="15px" />
+          <span>{props.stats.rating}</span>
+          <span> ({props.stats.reviewCount})</span>
+          <span> -{props.location}</span>
+        </p>
+        <h3>{props.title}</h3>
+        <p>
+          <strong>From ${props.price}</strong> /person
+        </p>
+      </div>
+    </div>
+  );
 }
